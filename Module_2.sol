@@ -8,7 +8,7 @@ contract MyBank {
 
 
      modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can Withdraw.");
+        require(msg.sender == owner, "UNAUTHORIZED ACCESS, ACCESS DENIED.");
         _;
     }
 
