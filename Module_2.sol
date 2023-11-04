@@ -3,19 +3,19 @@ pragma solidity ^0.8.18;
 
 contract MyBank {
     uint public balance;
-    address public owner;
+    address public AccHolder;
     mapping(address => uint) public AvailableBalance;
 
 
-     modifier onlyOwner() {
-        require(msg.sender == owner, "UNAUTHORIZED ACCESS, ACCESS DENIED.");
+     modifier onlyAccHolder() {
+        require(msg.sender == AccHolder, "UNAUTHORIZED ACCESS, ACCESS DENIED."); // access is granted only to the account holder
         _;
     }
 
     constructor(uint initialSupply) {
         balance = initialSupply;
         AvailableBalance[msg.sender] = balance;
-        owner = msg.sender;
+       AccHolder = msg.sender;
     }
     function CheckBalance () view public returns (uint){
         return balance;
@@ -26,7 +26,7 @@ contract MyBank {
         balance = balance + Amount;
     }
 
-     function Withdraw(address WalletAddress, uint Amount) public onlyOwner{
+     function Withdraw(address WalletAddress, uint Amount) public onlyAccHolder{
         if (AvailableBalance[WalletAddress] >= Amount) {
             AvailableBalance[WalletAddress] = AvailableBalance[WalletAddress] - Amount;
             balance = balance - Amount;
